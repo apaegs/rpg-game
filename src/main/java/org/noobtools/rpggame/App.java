@@ -15,6 +15,8 @@ public class App extends Application {
     private static final int TILE_SIZE = 16;
     private static final int WIDTH = 40;
     private static final int HEIGHT = 30;
+    private static final int GAME_WIDTH = 40;
+    private static final int GAME_HEIGHT = 20;
 
     // Spelplan: '#' = vägg, '.' = golv
     private char[][] map = new char[HEIGHT][WIDTH];
@@ -42,7 +44,6 @@ public class App extends Application {
             });
         }
 
-
         stage.setScene(scene);
         stage.setTitle("Roguelike Game");
         stage.show();
@@ -50,9 +51,9 @@ public class App extends Application {
 
     private void generateMap() {
         // Skapa en enkel karta med väggar runtom
-        for (int y = 0; y < HEIGHT; y++) {
-            for (int x = 0; x < WIDTH; x++) {
-                if (y == 0 || y == HEIGHT - 1 || x == 0 || x == WIDTH - 1) {
+        for (int y = 0; y < GAME_HEIGHT; y++) {
+            for (int x = 0; x < GAME_WIDTH; x++) {
+                if (y == 0 || y == GAME_HEIGHT - 1 || x == 0 || x == GAME_WIDTH - 1) {
                     map[y][x] = '#'; // vägg
                 } else {
                     map[y][x] = '.'; // golv
