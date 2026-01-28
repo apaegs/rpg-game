@@ -12,9 +12,9 @@ import org.noobtools.rpggame.model.Player;
 
 public class App extends Application {
 
-    private static final int TILE_SIZE = 32;
-    private static final int WIDTH = 20;
-    private static final int HEIGHT = 15;
+    private static final int TILE_SIZE = 16;
+    private static final int WIDTH = 40;
+    private static final int HEIGHT = 30;
 
     // Spelplan: '#' = vägg, '.' = golv
     private char[][] map = new char[HEIGHT][WIDTH];
@@ -31,14 +31,17 @@ public class App extends Application {
         draw(gc);
 
         Scene scene = new Scene(new StackPane(canvas));
-        scene.setOnKeyPressed(event -> {
-            KeyCode code = event.getCode();
-            if (code == KeyCode.UP) player.moveUp(map);
-            if (code == KeyCode.DOWN) player.moveDown(map);
-            if (code == KeyCode.LEFT) player.moveLeft(map);
-            if (code == KeyCode.RIGHT) player.moveRight(map);
-            draw(gc);
-        });
+        if (player != null) {
+            scene.setOnKeyPressed(event -> {
+                KeyCode code = event.getCode();
+                if (code == KeyCode.UP) player.moveUp(map);
+                if (code == KeyCode.DOWN) player.moveDown(map);
+                if (code == KeyCode.LEFT) player.moveLeft(map);
+                if (code == KeyCode.RIGHT) player.moveRight(map);
+                draw(gc);
+            });
+        }
+
 
         stage.setScene(scene);
         stage.setTitle("Roguelike Game");
@@ -82,8 +85,11 @@ public class App extends Application {
         }
 
         // Rita spelaren
-        gc.setFill(Color.BLUE);
-        gc.fillRect(player.getX() * TILE_SIZE, player.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        if (player != null) {
+            gc.setFill(Color.BLUE);
+            gc.fillRect(player.getX() * TILE_SIZE, player.getY() * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        }
+
     }
 
     public static void main(String[] args) {
